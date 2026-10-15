@@ -36,7 +36,7 @@ app.post('/api/redeem', async (req, res) => {
 
 // In production, Express serves the built React app and API from one service.
 app.use(express.static(distPath, { index: false }));
-app.get('*', (req, res, next) => {
+app.get('/{*path}', (req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
   res.sendFile(path.join(distPath, 'index.html'), (error) => {
     if (error && !res.headersSent) next(error);
